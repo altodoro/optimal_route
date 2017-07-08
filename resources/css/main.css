@@ -1,0 +1,57 @@
+#searchForm {
+    margin-top: 10px;
+    width: 200px;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+.locationsSelectBlock {
+    padding-right: 50px;
+    position: relative;
+}
+.locationsSelectBlock > select {
+    width: 100%;
+    margin: 5px 0;
+}
+.locationsSelectBlock > button {
+    position: absolute;
+    right: 0px;
+    line-height: 2.125rem;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+.searchTypeCheckboxfield {
+    width: 50%;
+    float: left;
+    display: inline-block;
+}
+#searchForm .searchButton {
+    width: 100%;
+}
+#searchForm .searchButton:not([disabled]) {
+    display: block;
+    background: #2086bf;
+    color: #ffffff;
+    border-color: #2086bf;
+}
+#searchResultBlock {
+    background: white;
+    width: 350px;
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+}
+#searchResultBlock .reset {
+    width: 100%;
+}
+.searchResultTable {
+    font-size: 1.5em;
+    font-weight: 500;
+    word-wrap: break-word;
+}
+.minorInfo {
+    font-size: 0.75em;
+}
+.totals .minorInfo {
+    float: right;
+}

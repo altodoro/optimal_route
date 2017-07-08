@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script type="text/javascript" src="resources/libs/underscore.js"></script>
+<script type="text/javascript" src="resources/libs/dijkstra.js"></script>
+<script type="text/javascript" src="resources/js/main.js"></script>
+<link rel="stylesheet" type="text/css" href="resources/css/main.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/olton/Metro-UI-CSS/develop/build/css/metro.min.css">
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+    <form id="searchForm">
+        <div class="locationsSelectBlock">
+            <select ng-model="departureSelect" class="input-control">
+                <option ng-repeat="x in departureLocations" value="{{x}}">{{x}}</option>
+            </select>
+            <select ng-model="arrivalSelect" class="input-control">
+                <option ng-repeat="x in arrivalLocations" value="{{x}}">{{x}}</option>
+            </select>
+            <button class="cycle-button" alt="Switch Locations" ng-click="switchLocation()">🔃</button>
+        </div>
+        <div>
+            <label class="searchTypeCheckboxfield input-control radio small-check">
+                <input type="radio" ng-model="searchType" value="cheap">
+                <span class="check"></span>
+                <span class="caption">Cheap</span>
+            </label>
+            <label class="searchTypeCheckboxfield input-control radio small-check">
+                <input type="radio" ng-model="searchType" value="fast">
+                <span class="check"></span>
+                <span class="caption">Fast</span>
+            </label>
+            <button id="searchButtonId" class="button searchButton" ng-click="doSearch()" ng-disabled="searchType == null || departureSelect == null || arrivalSelect == null">Search</button>
+        </div>
+    </form>
+    <div id="searchResultBlock" ng-if="searchResult.items.length > 0">
+        <table class="searchResultTable table striped hovered cell-hovered">
+            <tbody>
+              <tr ng-repeat="x in searchResult.items">
+                <td class="routeInfo">
+                    {{ x.departure }} <span class="arrowRight">></span> {{ x.arrival }}
+                    <div class="minorInfo">
+                        {{ x.transport }} {{ x.reference }}
+                        <span ng-if="searchType == 'cheap'">{{ x.duration.h }}h{{ x.duration.m }} </span>
+                        <span ng-if="searchType == 'fast'">{{ x.netCost }} €</span>
+                    </div>
+                <td>
+                    <span ng-if="searchType == 'cheap'">{{ x.netCost }} €</span>
+                    <span ng-if="searchType == 'fast'">{{ x.duration.h }}h{{ x.duration.m }} </span>
+                </td>
+              </tr>
+            </tbody>
+            <tfooter>
+                <tr>
+                    <td class="totals">
+                        Total
+                        <span class="minorInfo">
+                            <span ng-if="searchType == 'cheap'">{{searchResult.totalDuration.h}}h{{searchResult.totalDuration.m}}
+                            </span>
+                            <span ng-if="searchType == 'fast'">
+                                {{searchResult.totalCost}}€
+                            </span>
+                        </span>
+                    </td>
+                    <td>
+                        <span ng-if="searchType == 'cheap'">{{searchResult.totalCost}}€</span>
+                        <span ng-if="searchType == 'fast'">{{searchResult.totalDuration.h}}h{{searchResult.totalDuration.m}}
+                        </span>
+                    </td>
+                </tr>
+            </tfooter>
+        </table>
+        <button ng-click="reset()" class="button danger reset">Reset</button>
+    </div>
+</div>
+
+</body>
+</html>
